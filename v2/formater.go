@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"log"
 	"os"
+	"sort"
 )
 
 type patient struct {
@@ -33,7 +34,10 @@ func Do(sourceFile, resultFile string) {
 		r = append(r, p)
 	}
 
-	// v2.0.0 - запись структуры в xml
+	// v2.1.0 - запись структуры в xml отсортированной по Age
+	sort.Slice(r, func(i, j int) bool {
+		return r[i].Age < r[j].Age
+	})
 
 	f, err = os.CreateTemp("./", resultFile)
 	if err != nil {
