@@ -39,7 +39,10 @@ func Do(sourceFile, resultFile string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	err = xml.NewEncoder(f).Encode(&r)
+	f.WriteString(xml.Header)
+	encoder := xml.NewEncoder(f)
+	encoder.Indent("", "\t")
+	err = encoder.Encode(&r)
 	if err != nil {
 		log.Fatalln(err)
 	}
