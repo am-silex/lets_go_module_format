@@ -1,9 +1,10 @@
-package lets_go_module_formater
+package lets_go_module_format
 
 import (
 	"encoding/json"
 	"log"
 	"os"
+	"sort"
 )
 
 type patient struct {
@@ -32,10 +33,10 @@ func Do(sourceFile, resultFile string) {
 		r = append(r, p)
 	}
 
-	// v1.0.0 - массив из тех же json'ов
-	// v1.1.0
-	// v2.0.0
-	// v2.1.0
+	// v1.1.0 - массив из тех же json'ов с сортировкой по Age
+	sort.Slice(r, func(i, j int) bool {
+		return r[i].Age < r[j].Age
+	})
 
 	f, err = os.CreateTemp("./", resultFile)
 	if err != nil {
